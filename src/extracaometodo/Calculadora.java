@@ -10,33 +10,38 @@ package extracaometodo;
  * DICA: Identifique blocos de código que fazem uma coisa específica e extraia-os em métodos nomeados.
  */
 public class Calculadora {
-    
+
     public double calcularTotal(double preco, int quantidade, boolean temDesconto, boolean temImposto) {
         double subtotal = preco * quantidade;
-        
-        // Cálculo de desconto
+
         if (temDesconto) {
-            if (quantidade > 10) {
-                subtotal = subtotal - (subtotal * 0.15);
-            } else if (quantidade > 5) {
-                subtotal = subtotal - (subtotal * 0.10);
-            } else {
-                subtotal = subtotal - (subtotal * 0.05);
-            }
+            subtotal = aplicarDesconto(subtotal, quantidade);
         }
-        
-        // Cálculo de imposto
         if (temImposto) {
-            if (subtotal > 1000) {
-                subtotal = subtotal + (subtotal * 0.20);
-            } else if (subtotal > 500) {
-                subtotal = subtotal + (subtotal * 0.15);
-            } else {
-                subtotal = subtotal + (subtotal * 0.10);
-            }
+            subtotal = aplicarImposto(subtotal);
         }
-        
+
         return subtotal;
+    }
+
+    private double aplicarDesconto(double subtotal, int quantidade) {
+        if (quantidade > 10) {
+            return subtotal - (subtotal * 0.15);
+        } else if (quantidade > 5) {
+            return subtotal - (subtotal * 0.10);
+        } else {
+            return subtotal - (subtotal * 0.05);
+        }
+    }
+
+    private double aplicarImposto(double subtotal) {
+        if (subtotal > 1000) {
+            return subtotal + (subtotal * 0.20);
+        } else if (subtotal > 500) {
+            return subtotal + (subtotal * 0.15);
+        } else {
+            return subtotal + (subtotal * 0.10);
+        }
     }
 }
 

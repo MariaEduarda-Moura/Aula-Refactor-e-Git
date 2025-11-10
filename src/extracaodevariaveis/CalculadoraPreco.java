@@ -10,13 +10,23 @@ package extracaodevariaveis;
  * DICA: Variáveis extraídas tornam o código mais legível e facilitam a depuração.
  */
 public class CalculadoraPreco {
-    
+
     public double calcularPrecoFinal(double precoBase, int quantidade, double taxaImposto) {
-        return precoBase * quantidade * (1 + taxaImposto) - (precoBase * quantidade * 0.1) + 5.0;
+
+        double subtotal = precoBase * quantidade;
+        double precoComImposto = subtotal * (1 + taxaImposto);
+        double desconto = subtotal * 0.1;
+        double taxaFixa = 5.0; // Ex: Frete
+
+        return precoComImposto - desconto + taxaFixa;
     }
-    
+
     public boolean podeAplicarDesconto(double preco, int quantidade, boolean clienteVIP) {
-        return (preco > 100 && quantidade > 5) || (clienteVIP && preco > 50);
+
+        boolean descontoPorVolume = (preco > 100 && quantidade > 5);
+        boolean descontoVIP = (clienteVIP && preco > 50);
+
+        return descontoPorVolume || descontoVIP;
     }
 }
 

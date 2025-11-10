@@ -13,24 +13,18 @@ package movimentacaometodo;
 public class Cliente {
     private String nome;
     private Pedido pedido;
-    
+
     public Cliente(String nome, Pedido pedido) {
         this.nome = nome;
         this.pedido = pedido;
     }
-    
+
     public String getNome() {
         return nome;
     }
 
-    // Este método deveria estar na classe Pedido
     public double calcularDesconto() {
-        if (pedido.getValorTotal() > 1000) {
-            return pedido.getValorTotal() * 0.10;
-        } else if (pedido.getValorTotal() > 500) {
-            return pedido.getValorTotal() * 0.05;
-        }
-        return 0;
+        return pedido.calcularDesconto();
     }
 }
 

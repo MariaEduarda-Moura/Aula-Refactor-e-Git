@@ -9,6 +9,7 @@ package remocaodeflags;
  * TAREFA: Remova a flag e crie métodos separados para cada comportamento.
  * 
  * DICA: Flags tornam o código menos claro. Prefira métodos separados ou polimorfismo.
+ * criar dois metodo processar com desconto e processar sem desconto
  */
 public class ProcessadorPedido {
     
