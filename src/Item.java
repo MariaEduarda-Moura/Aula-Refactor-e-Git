@@ -10,15 +10,18 @@ public class Item {
     }
 
     public void update() {
-        // Trocamos "item.name" por "this.name" (ou apenas "name")
-        if (!name.equals("Aged Brie")
-                && !name.equals("Backstage passes to a TAFKAL80ETC concert")
-                && !name.equals("Conjured Mana Cake")
-                && !name.equals("Eternal Artifact")) {
+        final boolean isAgedBrie = name.equals("Aged Brie");
+        final boolean isBackstagePass = name.equals("Backstage passes to a TAFKAL80ETC concert");
+        final boolean isSulfuras = name.equals("Sulfuras, Hand of Ragnaros");
+        final boolean isConjured = name.equals("Conjured Mana Cake");
+        final boolean isEternal = name.equals("Eternal Artifact");
+        final boolean isPerishable = name.contains("Perishable");
+
+        if (!isAgedBrie && !isBackstagePass && !isConjured && !isEternal) {
             if (quality > 0) {
-                if (!name.equals("Sulfuras, Hand of Ragnaros")) {
+                if (!isSulfuras) {
                     quality = quality - 1;
-                    if (name.contains("Perishable")) {
+                    if (isPerishable) {
                         quality = quality - 1;
                     }
                 }
@@ -26,7 +29,7 @@ public class Item {
         } else {
             if (quality < 50) {
                 quality = quality + 1;
-                if (name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+                if (isBackstagePass) {
                     if (sellIn < 11) {
                         if (quality < 50) {
                             quality = quality + 1;
@@ -37,9 +40,9 @@ public class Item {
                             quality = quality + 1;
                         }
                     }
-                } else if (name.equals("Conjured Mana Cake")) {
+                } else if (isConjured) {
                     quality = quality + 1;
-                } else if (name.equals("Eternal Artifact")) {
+                } else if (isEternal) {
                     if (sellIn % 2 == 0) {
                         quality = quality + 1;
                     }
@@ -47,45 +50,44 @@ public class Item {
             }
         }
 
-        if (!name.equals("Sulfuras, Hand of Ragnaros") && !name.equals("Eternal Artifact")) {
+        if (!isSulfuras && !isEternal) {
             sellIn = sellIn - 1;
         }
 
         if (sellIn < 0) {
-            if (!name.equals("Aged Brie")) {
-                if (!name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+            if (!isAgedBrie) {
+                if (!isBackstagePass) {
                     if (quality > 0) {
-                        if (!name.equals("Sulfuras, Hand of Ragnaros")) {
+                        if (!isSulfuras) {
                             quality = quality - 1;
-                            if (name.equals("Conjured Mana Cake")) {
+                            if (isConjured) {
                                 quality = quality - 1;
                             }
-                            if (name.contains("Perishable")) {
+                            if (isPerishable) {
                                 quality = quality - 2;
                             }
                         }
                     } else {
-                        quality = quality - quality;
+                        this.quality=0;
                     }
                 } else {
                     if (quality < 50) {
                         quality = quality + 1;
                     }
                 }
-                if (name.equals("Eternal Artifact") && quality < 50) {
+                if (isEternal && quality < 50) {
                     quality = quality + 1;
                 }
             }
         }
 
-        if (quality > 50 && !name.equals("Sulfuras, Hand of Ragnaros")) {
+        if (quality > 50 && !isSulfuras) {
             quality = 50;
         }
         if (quality < 0) {
             quality = 0;
         }
     }
-
     @Override
     public String toString() {
         return this.name + ", " + this.sellIn + ", " + this.quality;
